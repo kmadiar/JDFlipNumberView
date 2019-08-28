@@ -5,7 +5,7 @@
 //  Copyright 2011 Markus Emrich. All rights reserved.
 //
 
-
+#import <UIKit/UIKit.h>
 @protocol JDFlipNumberDigitViewDelegate;
 
 typedef NS_OPTIONS(NSUInteger, JDFlipAnimationType) {

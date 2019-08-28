@@ -5,7 +5,6 @@
 //  Copyright 2011 Markus Emrich. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "JDFlipNumberDigitView.h"
 
 #import "JDFlipNumberView.h"
@@ -446,7 +445,12 @@ typedef NS_OPTIONS(NSUInteger, JDFlipAnimationDirection) {
 - (NSUInteger)marginForWidth:(CGFloat)width;
 {
     if (self.digitViews.count <= 1) return 0;
-    CGFloat relativeDigitMargin = ((width*self.relativeDigitMargin)/(self.digitViews.count-1));
+    CGFloat relativeDigitMargin = round((width*self.relativeDigitMargin)/(self.digitViews.count-1));
+    if (relativeDigitMargin == 0)
+    {
+        relativeDigitMargin = 1;
+    }
+    
     return MAX(relativeDigitMargin, self.absoluteDigitMargin);
 }
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 markusemrich. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "JDFlipNumberViewImageFactory.h"
 
 #import "JDFlipImageView.h"
@@ -19,7 +18,7 @@ typedef NS_OPTIONS(NSUInteger, JDFlipAnimationState) {
 	JDFlipAnimationStateSecondHalf
 };
 
-@interface JDFlipImageView ()
+@interface JDFlipImageView () <CAAnimationDelegate>
 
 @property (nonatomic, assign) BOOL upscalingAllowed;
 @property (nonatomic, assign) CGFloat animationDuration;

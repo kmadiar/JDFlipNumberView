@@ -5,19 +5,14 @@
 //  Copyright 2011 Markus Emrich. All rights reserved.
 //
 
-#import "JDFlipNumberView.h"
-
 #import "JDDateCountdownFlipView.h"
+#define xOffset(x) [UIScreen mainScreen].bounds.size.width*x/750
 
 static CGFloat kFlipAnimationUpdateInterval = 0.5; // = 2 times per second
 
 @interface JDDateCountdownFlipView ()
 @property (nonatomic) NSInteger dayDigitCount;
 @property (nonatomic, copy) NSString *imageBundleName;
-@property (nonatomic, strong) JDFlipNumberView* dayFlipNumberView;
-@property (nonatomic, strong) JDFlipNumberView* hourFlipNumberView;
-@property (nonatomic, strong) JDFlipNumberView* minuteFlipNumberView;
-@property (nonatomic, strong) JDFlipNumberView* secondFlipNumberView;
 
 @property (nonatomic, strong) NSTimer *animationTimer;
 @end
@@ -158,12 +153,50 @@ static CGFloat kFlipAnimationUpdateInterval = 0.5; // = 2 times per second
     // resize first flipview
     self.dayFlipNumberView.frame = CGRectMake(currentX, 0, digitWidth * self.dayDigitCount, size.height);
     currentX += self.dayFlipNumberView.frame.size.width;
+    if (self.needTimeLabel == true)
+    {
+        if (self.dayFlipNumberView.timeLabel == nil)
+        {
+            self.dayFlipNumberView.timeLabel = [[UILabel alloc] init];
+          self.dayFlipNumberView.timeLabel.font = [UIFont systemFontOfSize: 8];//nurmashRegular:fontSize(8)];
+//            self.dayFlipNumberView.timeLabel.textColor = [UIColor NANormalText];
+            self.dayFlipNumberView.timeLabel.textAlignment = NSTextAlignmentCenter;
+            
+            self.dayFlipNumberView.timeLabel.frame = CGRectMake(0,
+                                                                self.dayFlipNumberView.frame.size.height + xOffset(18),
+                                                                self.dayFlipNumberView.frame.size.width - 1,
+                                                                10);
+                                                                //[TextFitHelper sizeOfText:@"Ij"
+                                                                  //        widthOfTextView:self.dayFlipNumberView.frame.size.width
+                                                                    //                 with:self.dayFlipNumberView.timeLabel.font
+                                                                      //  lineSpacingHeight:0].height);
+            [self.dayFlipNumberView addSubview:self.dayFlipNumberView.timeLabel];
+        }
+    }
     
     // update flipview frames
     for (JDFlipNumberView* view in @[self.hourFlipNumberView, self.minuteFlipNumberView, self.secondFlipNumberView]) {
         currentX   += margin;
         view.frame = CGRectMake(currentX, 0, digitWidth*2, size.height);
         currentX   += view.frame.size.width;
+        
+        if (self.needTimeLabel == true)
+        {
+            if (view.timeLabel == nil)
+            {
+                view.timeLabel = [[UILabel alloc] init];
+              view.timeLabel.font = [UIFont systemFontOfSize:8];//nurmashRegular:fontSize(8)];
+//                view.timeLabel.textColor = [UIColor NANormalText];
+                view.timeLabel.textAlignment = NSTextAlignmentCenter;
+                
+                view.timeLabel.frame = CGRectMake(0,
+                                                  view.frame.size.height + xOffset(18),
+                                                  view.frame.size.width - 1,
+                                                  10);
+//                                                  [TextFitHelper sizeOfText:@"Ij" widthOfTextView:view.frame.size.width with:view.timeLabel.font lineSpacingHeight:0].height);
+                [view addSubview:view.timeLabel];
+            }
+        }
     }
 }
 

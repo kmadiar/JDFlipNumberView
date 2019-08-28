@@ -5,7 +5,7 @@
 //  Copyright 2011 Markus Emrich. All rights reserved.
 //
 
-
+#import <UIKit/UIKit.h>
 
 @protocol JDFlipNumberViewDelegate;
 
@@ -15,6 +15,7 @@ typedef void(^JDFlipAnimationCompletionBlock)(BOOL finished);
 
 @property (nonatomic, weak) id<JDFlipNumberViewDelegate> delegate;
 
+@property (retain, nonatomic) UILabel *timeLabel;
 @property (nonatomic, assign) NSInteger value;
 @property (nonatomic, assign) NSUInteger maximumValue;
 @property (nonatomic, assign) CGFloat animationDuration;
